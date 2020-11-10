@@ -1,6 +1,6 @@
 const Work = require("../modules/work");
 
-const allWork = (res) => {
+const allWork = (req, res) => {
   Work.find().then((result) => {
     res.render("index", { title: "ToDo", work: result });
   });
