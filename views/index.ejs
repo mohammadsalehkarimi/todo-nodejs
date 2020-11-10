@@ -93,18 +93,34 @@
             <button class="btn btn-primary my-3">Add ToDo</button>
           </div>
         </form>
-        <div class="col-lg-3">
-          <% work.forEach(workinfo => { %>
-          <div class="card my-3 shadow">
-            <div class="card-body">
-              <h5 class="card-title"><%= workinfo.workname %></h5>
-              <p class="card-text"><%= workinfo.workdesc %></p>
-              <button type="button" class="btn btn-primary text-left">
-                Done!
-              </button>
-            </div>
-          </div>
-          <% }) %>
+        <div class="col-lg-9">
+          <table class="table card shadow">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th class="col-3">subject</th>
+                <th class="col-7">decreibtion</th>
+                <th class="col-2">option</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% work.forEach(workinfo => { %>
+              <tr>
+                <th scope="row">1</th>
+                <td class="col-3"><%= workinfo.workname %></td>
+                <td class="col-7"><%= workinfo.workdesc %></td>
+                <td class="col-2">
+                  <a
+                    data-doc="<%= workinfo._id %> "
+                    class="ml-3 deleted"
+                    style="cursor: pointer"
+                    ><i class="fa fa-trash text-danger" aria-hidden="true"></i
+                  ></a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -114,4 +130,22 @@
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"
   ></script>
+  <script>
+    const deleted = document.querySelector("a.deleted");
+
+    deleted.addEventListener("click", (e) => {
+      const deletedWork = `${deleted.dataset.doc}`;
+
+      fetch(deletedWork, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          response.json();
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  </script>
 </html>

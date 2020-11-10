@@ -39,3 +39,14 @@ app.post("/", (req, res) => {
     })
     .catch((err) => console.log(err));
 });
+
+app.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  Work.findByIdAndDelete(id)
+    .then((result) => {
+      res.json();
+    })
+    .catch((err) => console.log(err));
+});
