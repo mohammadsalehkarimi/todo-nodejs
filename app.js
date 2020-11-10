@@ -45,7 +45,7 @@ app.delete("/:id", (req, res) => {
   console.log(id);
 
   Work.findByIdAndDelete(id)
-    .then((result) => {
+    .then(() => {
       res.json();
     })
     .catch((err) => console.log(err));
